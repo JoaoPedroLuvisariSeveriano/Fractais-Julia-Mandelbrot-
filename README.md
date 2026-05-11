@@ -6,6 +6,13 @@ O sistema permite gerar imagens em alta resolução (PNG) e vetores (SVG) atrav�
 
 ---
 
+## 🔗 Apresentação do Projeto
+
+Você pode conferir a apresentação completa deste projeto no Prezi através do link abaixo:
+👉 **[Ver Apresentação no Prezi](https://prezi.com/view/tEgvkw4Jpm5mpe2H4J8O/?referral_token=ODZ4iOlnB3FN)**
+
+---
+
 ## 🚀 Como Iniciar o Projeto
 
 Siga os passos abaixo para configurar e rodar a aplicação em sua máquina.
