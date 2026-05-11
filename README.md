@@ -74,6 +74,41 @@ O Mandelbrot é o "mapa" de todos os Julia. Para explorá-lo, mude o tipo para *
 
 ---
 
+## 🏗️ Arquitetura do Sistema
+
+A aplicação segue uma arquitetura moderna de desacoplamento entre cliente e servidor, garantindo que o processamento pesado de cálculos matemáticos fique centralizado no Backend.
+
+### Fluxo de Dados
+
+```mermaid
+graph TD
+    A[Usuário / Navegador] -->|Envia Parâmetros JSON| B[API Gateway - FastAPI]
+    B --> C{Tipo de Fractal?}
+    C -->|Julia| D[Motor de Cálculo Julia]
+    C -->|Mandelbrot| E[Motor de Cálculo Mandelbrot]
+    D & E --> F[NumPy / Numba - Vetorização]
+    F --> G[Mapeador de Cores / Paletas]
+    G --> H[Pillow - Geração de Imagem PNG/SVG]
+    H -->|Retorna Buffer de Imagem| B
+    B -->|Exibe Imagem| A
+```
+
+### Componentes Principais
+
+1.  **Frontend (React + Vite)**: 
+    *   Gerencia o estado dos parâmetros (Real, Imag, Step, Paleta).
+    *   Faz chamadas assíncronas para a API e lida com o render de Blobs de imagem.
+2.  **Backend (FastAPI)**:
+    *   Valida os tipos de dados e limites de segurança (ex: largura máxima da imagem).
+    *   Coordena a execução dos algoritmos matemáticos.
+3.  **Core (NumPy & Numba)**:
+    *   **Vetorização**: Em vez de calcular pixel por pixel em loops lentos de Python, o sistema trata a tela inteira como uma matriz NumPy, disparando cálculos em massa.
+    *   **Suavização Log-Log**: Aplica uma correção matemática para evitar "bandas" de cores, criando gradientes suaves e profissionais.
+4.  **CLI (Command Line Interface)**:
+    *   Permite a integração do motor de cálculo com outros scripts ou automações sem a necessidade de uma interface gráfica.
+
+---
+
 ## 📐 Detalhes de Implementação (Requisitos PRJ.3)
 
 Este projeto atende integralmente aos requisitos:
